@@ -1,6 +1,7 @@
 # Essential
 
-## docs
+home
+: <https://github.com/YumaYX/Essential>
 
-<https://yumayx.github.io/Essential/>
-
+docs
+: <https://yumayx.github.io/Essential/>

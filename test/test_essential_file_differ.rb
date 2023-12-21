@@ -42,4 +42,12 @@ class TestEssentialFileDiffer < Minitest::Test
     }
     assert_equal(expect, @filelist2.diff_uniq(@filelist1))
   end
+
+  def test_no_arg
+    dup_fname = "#{@temp_dir}/duplication"
+    File.write(dup_fname, '0')
+    assert_equal(2, @filelist2.diff[md5digest(dup_fname)].length)
+
+    assert_equal(2, @filelist2.diff_uniq.length)
+  end
 end

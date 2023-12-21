@@ -10,7 +10,7 @@ module Essential
     # Compare two FileLists and return the file differences as a hash.
     # @param other [Essential::FileList] The FileList to compare with.
     # @return [Hash] A hash containing the file differences.
-    def diff(other)
+    def diff(other = FileDiffer.new)
       (to_a + other.to_a).each_with_object({}) do |element, hash|
         digest = Digest::MD5.file(element).hexdigest
         (hash[digest] ||= []) << element
@@ -21,7 +21,7 @@ module Essential
     # This method selects only the file differences with a count of 1.
     # @param other [Essential::FileList] The FileList to compare with.
     # @return [Hash] A hash containing the unique file differences.
-    def diff_uniq(other)
+    def diff_uniq(other = nil)
       diff(other).select { |_, value| value.length.eql?(1) }
     end
   end
