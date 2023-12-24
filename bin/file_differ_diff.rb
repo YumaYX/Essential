@@ -8,7 +8,6 @@ if ARGV.empty?
   exit 1
 end
 
-filelist = Essential::FileDiffer.new
-ARGV.each { |glob| filelist.add(glob) }
-
+filelist = Essential::FileDiffer[ARGV]
 filelist.diff.each { |sum, files| puts "#{sum} #{files.join(' ')}" }
+
