@@ -9,12 +9,12 @@ class TestEssentialFileList < Minitest::Test
 
     @not_exist = 'not_exist'
 
-    @files = 3.times.map do |i|
-      t = "#{@temp_dir}/#{i}"
+    @files = 3.times.map do |index|
+      temp_fname = "#{@temp_dir}/#{index}"
       # making 3 temp files by File.write
-      File.write(t, i)
+      File.write(temp_fname, index)
       # making array variable of 3 temp files by map :@files
-      t
+      temp_fname
     end
   end
 

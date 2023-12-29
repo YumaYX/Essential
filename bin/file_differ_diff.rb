@@ -10,4 +10,3 @@ end
 
 filelist = Essential::FileDiffer[ARGV]
 filelist.diff.each { |sum, files| puts "#{sum} #{files.join(' ')}" }
-

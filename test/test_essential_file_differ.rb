@@ -6,12 +6,12 @@ class TestEssentialFileDiffer < Minitest::Test
   def setup
     @temp_dir = Dir.mktmpdir
 
-    @files = 3.times.map do |i|
-      t = "#{@temp_dir}/#{i}"
+    @files = 3.times.map do |index|
+      temp_fname = "#{@temp_dir}/#{index}"
       # making 3 temp files by File.write
-      File.write(t, i)
+      File.write(temp_fname, index)
       # making array variable of 3 temp files by map :@files
-      t
+      temp_fname
     end
 
     # one files
@@ -24,8 +24,8 @@ class TestEssentialFileDiffer < Minitest::Test
     FileUtils.rm_rf(@temp_dir) if File.exist?(@temp_dir)
   end
 
-  def md5digest(file)
-    Digest::MD5.file(file).hexdigest
+  def md5digest(file_name)
+    Digest::MD5.file(file_name).hexdigest
   end
 
   def test_diff
@@ -44,9 +44,9 @@ class TestEssentialFileDiffer < Minitest::Test
   end
 
   def test_no_arg
-    dup_fname = "#{@temp_dir}/duplication"
-    File.write(dup_fname, '0')
-    assert_equal(2, @filelist2.diff[md5digest(dup_fname)].length)
+    dup_file_name = "#{@temp_dir}/duplication"
+    File.write(dup_file_name, '0')
+    assert_equal(2, @filelist2.diff[md5digest(dup_file_name)].length)
 
     assert_equal(2, @filelist2.diff_uniq.length)
   end

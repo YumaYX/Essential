@@ -8,7 +8,7 @@ class TestEssentialText < Minitest::Test
 
     assert_equal([], Essential::Text.extract_with_mark(text, /^UNIQUE$/))
 
-    pac = Essential::Text.extract_with_mark(text, /^MARK:/)
-    pac.each.with_index { |t, i| assert_equal("text#{i}", t.children[i]) }
+    pacs = Essential::Text.extract_with_mark(text, /^MARK:/)
+    pacs.each.with_index { |pac, index| assert_equal("text#{index}", pac.children[index]) }
   end
 end
