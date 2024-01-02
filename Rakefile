@@ -9,9 +9,9 @@ Rake::TestTask.new do |t|
   t.warning = true
 end
 
-desc "Test with act"
+desc 'Test with act'
 task :act do
-  sh %{act -j test -W .github/workflows/test.yml}
+  sh %(act -j test -W .github/workflows/test.yml)
 end
 
 require_relative 'lib/essential'
