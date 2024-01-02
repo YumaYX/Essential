@@ -13,13 +13,13 @@ class TestEssentialText < Minitest::Test
   end
 
   def test_lines_to_hash
-    expect = {}
-    2.times do |index|
-      key = "key#{index}"
-      value = [key, "value#{index}"]
-      expect.store(key, value)
-    end
+    expect = { 'key0' => %w[key0 value0], 'key1' => %w[key1 value1] }
     assert_equal(expect, Essential::Text.lines_to_hash("key0 value0\nkey1 value1", 0, ' '))
+  end
+
+  def test_lines_to_hash_column
+    expect = { 'value0' => %w[key0 value0], 'value1' => %w[key1 value1] }
+    assert_equal(expect, Essential::Text.lines_to_hash("key0 value0\nkey1 value1", 1, ' '))
   end
 
   def test_lines_to_hash_duplication

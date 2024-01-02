@@ -6,7 +6,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        ruby: [2.0.0, 3.2.2]
+        ruby: [2.0.0, 3.2, 3.3]
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
