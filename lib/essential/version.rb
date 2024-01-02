@@ -3,5 +3,5 @@
 # Essential
 module Essential
   # The version of the Essential module.
-  VERSION = '1.2.1'
+  VERSION = '1.3.0'
 end
