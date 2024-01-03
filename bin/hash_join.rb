@@ -8,8 +8,8 @@ unless ARGV.length.eql?(2)
   exit 1
 end
 
-hash1 = Essential::Text.lines_to_hash(File.read(ARGV.first))
-hash2 = Essential::Text.lines_to_hash(File.read(ARGV.last))
+hash1 = Essential::Text.lines_to_hash_f(ARGV.first)
+hash2 = Essential::Text.lines_to_hash_f(ARGV.last)
 
 joined = Essential::Join.hash_join(hash1, hash2)
 
