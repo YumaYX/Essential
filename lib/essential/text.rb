@@ -29,7 +29,7 @@ module Essential
       # @return [Array<ParentAndChild>] An array of ParentAndChild objects.
       def extract_with_mark_f(filename, start_line)
         array = []
-        readline(filename) { |line| array = extract_with_mark(line, start_line, array) }
+        readline(filename) { |line| extract_with_mark(line, start_line, array) }
         array
       end
 
@@ -63,7 +63,7 @@ module Essential
       # @raise [RuntimeError] If duplex is false (default) and duplicate keys are found in the lines.
       def lines_to_hash_f(filename, column_index = 0, deliminator = ' ', duplex: false)
         hash = {}
-        readline(filename) { |line| hash.merge(lines_to_hash(line, column_index, deliminator, hash, duplex: duplex)) }
+        readline(filename) { |line| lines_to_hash(line, column_index, deliminator, hash, duplex: duplex) }
         hash
       end
 
