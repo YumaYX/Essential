@@ -58,7 +58,7 @@ module Essential
       #
       # @param filename [String] The path to the file.
       # @param column_index [Integer] The index of the column to be used as the key (default is 0).
-      # @param deliminator [String] The delimiter used to split each line into an array of values (default is ' ').
+      # @param delimiter [String] The delimiter used to split each line into an array of values (default is ' ').
       # @param duplex [Boolean] If true, allows duplicate keys in the resulting hash (default is false).
       # @return [Hash] The hash where keys are taken from the specified column and values are arrays of line values.
       # @raise [RuntimeError] If duplex is false (default) and duplicate keys are found in the lines.
