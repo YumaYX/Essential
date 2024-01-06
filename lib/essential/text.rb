@@ -14,9 +14,10 @@ module Essential
       # @return [Array<ParentAndChild>] An array of ParentAndChild objects.
       def extract_with_mark(text, start_line, ref_array = [])
         text.each_line do |line|
-          if line.chomp! =~ start_line
+          line.chomp!
+          if line =~ start_line
             ref_array << Essential::ParentAndChild.new(line)
-          elsif !ref_array.empty?
+          elsif ref_array.any?
             ref_array.last.add_child(line)
           end
         end
@@ -29,7 +30,7 @@ module Essential
       # @return [Array<ParentAndChild>] An array of ParentAndChild objects.
       def extract_with_mark_f(filename, start_line)
         array = []
-        readline(filename) { |line| extract_with_mark(line, start_line, array) }
+        File.foreach(filename) { |line| extract_with_mark(line, start_line, array) }
         array
       end
 
@@ -37,18 +38,18 @@ module Essential
       #
       # @param text [String] The input text containing lines to be converted into a hash.
       # @param column_index [Integer] The index of the column to be used as the key (default is 0).
-      # @param deliminator [String] The delimiter used to split each line into an array of values (default is ' ').
+      # @param delimiter [String] The delimiter used to split each line into an array of values (default is ' ').
       # @param ref_hash [Hash] The hash to store the result (default is an empty hash).
       # @param duplex [Boolean] If true, allows duplicate keys in the resulting hash (default is false).
       # @return [Hash] The hash where keys are taken from the specified column and values are arrays of line values.
       # @raise [RuntimeError] If duplex is false (default) and duplicate keys are found in the lines.
-      def lines_to_hash(text, column_index = 0, deliminator = ' ', ref_hash = {}, duplex: false)
+      def lines_to_hash(text, column_index = 0, delimiter = ' ', ref_hash = {}, duplex: false)
         text.each_line do |line|
-          line_array = line.split(deliminator)
+          line_array = line.split(delimiter)
           key = line_array[column_index]
           raise "Duplicate keys in lines: #{key}" if ref_hash.key?(key) && !duplex
 
-          ref_hash.store(key, line_array)
+          ref_hash[key] = line_array
         end
         ref_hash
       end
@@ -61,19 +62,10 @@ module Essential
       # @param duplex [Boolean] If true, allows duplicate keys in the resulting hash (default is false).
       # @return [Hash] The hash where keys are taken from the specified column and values are arrays of line values.
       # @raise [RuntimeError] If duplex is false (default) and duplicate keys are found in the lines.
-      def lines_to_hash_f(filename, column_index = 0, deliminator = ' ', duplex: false)
+      def lines_to_hash_f(filename, column_index = 0, delimiter = ' ', duplex: false)
         hash = {}
-        readline(filename) { |line| lines_to_hash(line, column_index, deliminator, hash, duplex: duplex) }
+        File.foreach(filename) { |line| lines_to_hash(line, column_index, delimiter, hash, duplex: duplex) }
         hash
-      end
-
-      # Reads each line from the specified file and yields it to the provided block.
-      #
-      # @param filename [String] The path to the file.
-      # @yield [line] The block to be executed for each line in the file.
-      # @yieldparam line [String] The current line being processed.
-      def readline(filename, &block)
-        File.open(filename, 'r') { |text| text.each_line(&block) }
       end
     end
   end
