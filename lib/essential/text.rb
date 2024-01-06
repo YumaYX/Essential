@@ -46,7 +46,7 @@ module Essential
         text.each_line do |line|
           line_array = line.split(deliminator)
           key = line_array[column_index]
-          raise "Duplicate keys in lines: #{key}" if !duplex && ref_hash.key?(key)
+          raise "Duplicate keys in lines: #{key}" if ref_hash.key?(key) && !duplex
 
           ref_hash.store(key, line_array)
         end
