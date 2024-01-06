@@ -26,10 +26,9 @@ module Essential
       #
       # @note The original hashes remain unchanged.
       def hash_join(hash1, hash2)
-        joined_hash = {}
-        not_match = hash2.keys - hash1.keys
         joined_hash = hash1.merge(hash2) { |_, hash1_val, hash2_val| [hash1_val, hash2_val] }
-        not_match.each { |key| joined_hash.delete(key) }
+        not_match = hash2.keys - hash1.keys
+        joined_hash.reject! { |key| not_match.include?(key) }
         [joined_hash, not_match]
       end
     end
