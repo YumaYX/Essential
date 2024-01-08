@@ -95,7 +95,7 @@ module Essential
       def resolve_glob(glob)
         concreate = glob.map do |file_dir|
           # skip directory
-          Dir.glob(file_dir, File::FNM_DOTMATCH).reject { |ele| File.directory?(ele) }
+          Dir.glob(file_dir).reject { |ele| File.directory?(ele) }
         end
         concreate.flatten!
         concreate.uniq!

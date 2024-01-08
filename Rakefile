@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-require 'rake/clean'
+desc 'Test with act'
+task :act do
+  sh %(act -j test -W .github/workflows/test.yml)
+end
 
 require 'rake/testtask'
 task :test
 Rake::TestTask.new do |t|
   t.test_files = FileList['test/test_*.rb']
   t.warning = true
-end
-
-desc 'Test with act'
-task :act do
-  sh %(act -j test -W .github/workflows/test.yml)
 end
 
 require_relative 'lib/essential'
@@ -27,5 +25,6 @@ RuboCop::RakeTask.new(:rubocop) do |t|
   t.patterns = %w[lib test Rakefile]
 end
 
+require 'rake/clean'
 CLOBBER << '_site'
 task default: %i[clobber test rubocop]

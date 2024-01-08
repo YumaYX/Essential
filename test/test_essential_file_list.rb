@@ -48,14 +48,4 @@ class TestEssentialFileList < Minitest::Test
     filelist2.clear_exclude
     assert_equal(@files, filelist2.to_a)
   end
-
-  def test_dot_files
-    filelist = Essential::FileList["#{@temp_dir}/*"]
-    assert_equal(@files, filelist.to_a)
-
-    hidden_file = "#{@temp_dir}/.hidden_file"
-    File.write(hidden_file, '')
-    expect = [hidden_file] + @files
-    assert_equal(expect, filelist.to_a)
-  end
 end
