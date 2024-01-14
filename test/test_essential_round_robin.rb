@@ -9,7 +9,7 @@ class TestEssentialRoundRobin < Minitest::Test
 
     @commands = %w[ls]
     @options  = %w[-d -1]
-    @files    = %w[app.rb rakefile]
+    @files    = %w[Gemfile Rakefile]
   end
 
   def teardown
@@ -23,7 +23,7 @@ class TestEssentialRoundRobin < Minitest::Test
 
   def test_generate_combinations_3_args
     @rr.generate_combinations(@commands, @options, @files) { |combination| combination.join(' ') }
-    common_assert(%w[ls_-d_app.rb ls_-1_app.rb ls_-d_rakefile ls_-1_rakefile])
+    common_assert(%w[ls_-d_Gemfile ls_-1_Gemfile ls_-d_Rakefile ls_-1_Rakefile])
   end
 
   def common_assert(array)
