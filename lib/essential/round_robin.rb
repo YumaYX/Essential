@@ -23,12 +23,11 @@ module Essential
     # @return [self] Returns self.
     def generate_combinations(args1, *args2)
       args1.product(*args2).each do |combination|
-        file_name = combination.join('_')
-        full_path = File.join(@output_directory, file_name)
-
         contents = yield(combination)
         next if contents.nil?
 
+        file_name = combination.join('_')
+        full_path = File.join(@output_directory, file_name)
         File.write(full_path, contents.to_s)
       end
       self
