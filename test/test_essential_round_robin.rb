@@ -33,4 +33,13 @@ class TestEssentialRoundRobin < Minitest::Test
       assert_equal(expect, content)
     end
   end
+
+  def test_generate_combinations_include_nil
+    @rr.generate_combinations([1, 2], [100]) do |combination|
+      multi = combination.first * combination.last
+      multi if multi.eql?(200) # value or nil
+    end
+    assert(!File.exist?(File.join(@temp_dir, '1_100')))
+    assert(File.exist?(File.join(@temp_dir, '2_100')))
+  end
 end
