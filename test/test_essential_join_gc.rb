@@ -2,10 +2,10 @@
 
 require_relative './helper'
 
-class TestEssentialRoundRobin < Minitest::Test
+class TestEssentialJoinGC < Minitest::Test
   def setup
-    @temp_dir = Dir.mktmpdir
-    @rr = Essential::RoundRobin.new(@temp_dir)
+    Essential.result = Dir.mktmpdir
+    @temp_dir = Essential.result
 
     @commands = %w[ls]
     @options  = %w[-d -1]
@@ -17,12 +17,12 @@ class TestEssentialRoundRobin < Minitest::Test
   end
 
   def test_generate_combinations_2_args
-    @rr.generate_combinations(@commands, @options) { |combination| combination.join(' ') }
+    Essential::Join.generate_combinations(@commands, @options) { |combination| combination.join(' ') }
     common_assert(%w[ls_-d ls_-1])
   end
 
   def test_generate_combinations_3_args
-    @rr.generate_combinations(@commands, @options, @files) { |combination| combination.join(' ') }
+    Essential::Join.generate_combinations(@commands, @options, @files) { |combination| combination.join(' ') }
     common_assert(%w[ls_-d_Gemfile ls_-1_Gemfile ls_-d_Rakefile ls_-1_Rakefile])
   end
 
@@ -35,7 +35,7 @@ class TestEssentialRoundRobin < Minitest::Test
   end
 
   def test_generate_combinations_include_nil
-    @rr.generate_combinations([1, 2], [100]) do |combination|
+    Essential::Join.generate_combinations([1, 2], [100]) do |combination|
       multi = combination.first * combination.last
       multi if multi.eql?(200) # value or nil
     end

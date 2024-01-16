@@ -2,6 +2,7 @@
 
 # Essential
 module Essential
-  # The version of the Essential module.
-  VERSION = '3.0.0'
+  class << self
+    attr_accessor :result
+  end
 end

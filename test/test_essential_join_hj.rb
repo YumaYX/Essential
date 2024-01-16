@@ -2,7 +2,7 @@
 
 require_relative './helper'
 
-class TestJoin < Minitest::Test
+class TestJoinHJ < Minitest::Test
   def test_hash_join
     expect1 = {
       'key0' => [%w[key0 value0], %w[key0 valueX]],
