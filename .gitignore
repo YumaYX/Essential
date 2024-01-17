@@ -3,4 +3,4 @@
 .yardoc/
 Gemfile.lock
 _site/
-output/
+output*

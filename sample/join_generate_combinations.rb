@@ -3,6 +3,8 @@
 
 require_relative '../lib/essential'
 
+Essential.result = 'output_by_sample'
+
 commands = %w[ls]
 options  = %w[-d -l]
 files    = %w[Gemfile Rakefile]
