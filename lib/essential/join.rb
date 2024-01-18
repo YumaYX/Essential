@@ -50,11 +50,9 @@ module Essential
         Dir.mkdir(Essential.result, 0o755) unless File.directory?(Essential.result)
 
         args1.product(*args2).each do |combination|
+          contents = yield(combination) || next
           file_name = combination.join('_')
           full_path = File.join(Essential.result, file_name)
-          contents = yield(combination)
-          next if contents.nil?
-
           File.write(full_path, contents.to_s)
         end
       end
