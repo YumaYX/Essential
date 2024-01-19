@@ -16,13 +16,13 @@ class TestEssentialJoinGC < Minitest::Test
     FileUtils.rm_rf(@temp_dir) if File.exist?(@temp_dir)
   end
 
-  def test_generate_combinations_2_args
-    Essential::Join.generate_combinations(@commands, @options) { |combination| combination.join(' ') }
+  def test_generate_combination_files_2_args
+    Essential::Join.generate_combination_files(@commands, @options) { |combination| combination.join(' ') }
     common_assert(%w[ls_-d ls_-1])
   end
 
-  def test_generate_combinations_3_args
-    Essential::Join.generate_combinations(@commands, @options, @files) { |combination| combination.join(' ') }
+  def test_generate_combination_files_3_args
+    Essential::Join.generate_combination_files(@commands, @options, @files) { |combination| combination.join(' ') }
     common_assert(%w[ls_-d_Gemfile ls_-1_Gemfile ls_-d_Rakefile ls_-1_Rakefile])
   end
 
@@ -35,7 +35,7 @@ class TestEssentialJoinGC < Minitest::Test
   end
 
   def test_generate_combinations_include_nil
-    Essential::Join.generate_combinations([1, 2], [100]) do |combination|
+    Essential::Join.generate_combination_files([1, 2], [100]) do |combination|
       multi = combination.first * combination.last
       multi if multi.eql?(200) # value or nil
     end

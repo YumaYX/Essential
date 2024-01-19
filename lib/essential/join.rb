@@ -33,27 +33,37 @@ module Essential
         [joined_hash, not_match]
       end
 
-      # Generates combinations of arguments and creates files based on the combinations.
+      # Generates combinations using the given arguments and executes a block for each combination.
       #
-      # @param args1 [Array] The first array of arguments.
-      # @param args2 [Array] Additional arrays of arguments.
-      #
-      # @yield [Array] The block should return the contents for each combination.
-      #
-      # @example
-      #   args1 = [:a, :b]
-      #   args2 = [1, 2]
-      #   Essential::Join.generate_combinations(args1, args2) do |combination|
-      #     "Content for #{combination}"
-      #   end
+      # @param args1 [Array] The first array of arguments for combination generation.
+      # @param args2 [Array] Additional arrays of arguments for combination generation.
+      # @yield [combination] Block to be executed for each combination.
+      # @yieldparam combination [Array] The current combination of arguments.
+      # @yieldreturn [String] The contents to be written to a file for the current combination.
+      # @return [void]
       def generate_combinations(args1, *args2)
+        args1.product(*args2).each { |combination| yield(combination) || next }
+      end
+
+      # Generates combination files using the given arguments and executes a block for each combination.
+      # The resulting files are saved in the 'result' directory within the Essential module.
+      #
+      # @param args1 [Array] The first array of arguments for combination generation.
+      # @param args2 [Array] Additional arrays of arguments for combination generation.
+      # @yield [combination] Block to be executed for each combination.
+      # @yieldparam combination [Array] The current combination of arguments.
+      # @yieldreturn [String] The contents to be written to a file for the current combination.
+      # @return [void]
+      def generate_combination_files(args1, *args2)
         Dir.mkdir(Essential.result, 0o755) unless File.directory?(Essential.result)
 
-        args1.product(*args2).each do |combination|
+        generate_combinations(args1, *args2) do |combination|
           contents = yield(combination) || next
+          contents = contents.to_s
           file_name = combination.join('_')
           full_path = File.join(Essential.result, file_name)
-          File.write(full_path, contents.to_s)
+          File.write(full_path, contents)
+          contents
         end
       end
     end
