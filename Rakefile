@@ -26,10 +26,8 @@ RuboCop::RakeTask.new(:rubocop) do |t|
 end
 
 # YARD
-require_relative 'lib/essential'
 require 'yard'
 YARD::Rake::YardocTask.new do |t|
   t.files = FileList.new %w[lib/*.rb lib/**/*.rb]
-  t.options += ['--title', "Essential Ver. #{Essential::VERSION}"]
   t.options += ['--output-dir', '_site']
 end
