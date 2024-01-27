@@ -45,11 +45,9 @@ module Essential
       # @param line [String] The input line containing the IP address.
       # @return [Array<String>] An array of IP addresses with masks.
       def line_to_ips(line)
-        ips = []
         ip_object = line_to_ip(line)
         prefix = get_prefix(ip_object)
-        ip_object.to_range.each { |ele| ips << "#{ele} #{prefix}" }
-        ips
+        ip_object.to_range.map { |ele| "#{ele} #{prefix}" }
       end
     end
   end
