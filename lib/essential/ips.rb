@@ -5,9 +5,6 @@ require 'ipaddr'
 module Essential
   # Ips module provides functionality related to IP addresses.
   module Ips
-    # IP Address regexp
-    IP_AND_MASK = /^[\d.]{3}\d\s#[\d.]{3}\d$/.freeze
-
     class << self
       # Eliminate extra spaces of the input string.
       #
