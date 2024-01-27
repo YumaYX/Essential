@@ -11,18 +11,18 @@ require 'rake/clean'
 CLOBBER.include('_site', 'output*', '.yardoc')
 task default: %i[clobber test rubocop]
 
+# RUBOCOP
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new(:rubocop) do |t|
+  t.patterns = %w[lib test Rakefile]
+end
+
 # TEST
 require 'rake/testtask'
 task :test
 Rake::TestTask.new do |t|
   t.test_files = FileList['test/test_*.rb']
   t.warning = true
-end
-
-# RUBOCOP
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new(:rubocop) do |t|
-  t.patterns = %w[lib test Rakefile]
 end
 
 # YARD
