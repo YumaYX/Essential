@@ -3,7 +3,7 @@
 # ACT(TEST)
 desc 'Test with act'
 task :act do
-  sh %(act -j test -W .github/workflows/test.yml)
+  sh %(act -j test -W .github/workflows/test.yml 2>/dev/null | grep " - Main bundle exec rake test")
 end
 
 # DEFAULT

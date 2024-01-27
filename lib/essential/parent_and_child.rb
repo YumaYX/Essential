@@ -19,10 +19,17 @@ module Essential
       @children << child
     end
 
+    # Returns an array containing the parent and children of the family.
+    #
+    # @return [Array] An array containing the parent and children.
+    def family
+      [@parent] + @children
+    end
+
     # Generates a key-value template text.
     # @return [String] The key-value template text.
     def make_list
-      ([@parent] + @children).join("\n")
+      family.join("\n")
     end
   end
 end

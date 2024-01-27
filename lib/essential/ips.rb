@@ -9,14 +9,24 @@ module Essential
     IP_AND_MASK = /^[\d.]{3}\d\s#[\d.]{3}\d$/.freeze
 
     class << self
-      # Edit the formatting of the input string.
+      # Eliminate extra spaces of the input string.
       #
       # @param str [String] The input string to be formatted.
       # @return [String] The formatted string.
-      def edit_formatting(str)
+      def eliminate_extra_spaces(str)
         str = str.strip
         str.gsub!(/(\s)+/, ' ')
         str.gsub!(%r{\s*/\s*}, '/')
+        str
+      end
+
+      # Edit the format for IP addresses in the given string.
+      #
+      # @param [String] str The input string to be formatted.
+      # @return [String] The formatted string with '/' replacing spaces.
+      def edit_format_for_ipaddr(str)
+        str.gsub!(/^host /, '')
+        str.gsub!(/\s/, '/')
         str
       end
 
@@ -25,10 +35,9 @@ module Essential
       # @param line [String] The input line containing the IP address.
       # @return [IPAddr] The IPAddr object representing the IP address.
       def line_to_ip(line)
-        target = edit_formatting(line)
-        target.gsub!(/^host /, '')
-        target.gsub!(/\s/, '/')
-        IPAddr.new(target)
+        line = eliminate_extra_spaces(line)
+        line = edit_format_for_ipaddr(line)
+        IPAddr.new(line)
       end
 
       # Get the prefix of an IPAddr object.
