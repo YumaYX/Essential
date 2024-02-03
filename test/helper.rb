@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
-require_relative './../lib/essential'
+require Dir.glob("#{__dir__}/../lib/*.rb")[0]

@@ -4,18 +4,26 @@ require_relative './helper'
 
 class TestEssentialParentAndChild < Minitest::Test
   def setup
-    @pacs = Essential::ParentAndChild.new('Parent')
-    @number = 6
-    @number.times { |index| @pacs.add_child("Child#{index}") }
+    @pac = Essential::ParentAndChild.new('Parent')
   end
 
   def test_add_child
-    @number.times { |index| assert_equal(@pacs.children[index], "Child#{index}") }
+    3.times { |index| @pac.add_child(index) }
+    assert_equal(3.times.to_a, @pac.children)
   end
 
-  def test_get_content_with_text
-    expect = 'Parent'
-    @number.times { |index| expect += "\nChild#{index}" }
-    assert_equal(expect, @pacs.make_list)
+  def test_add_child_with_array
+    children_with_array = [[0, 1], [2, 3, 4]]
+    @pac.add_child(children_with_array)
+    assert_equal(5.times.to_a, @pac.children)
+  end
+
+  def test_family_none_child
+    assert_equal(['Parent'], @pac.family)
+  end
+
+  def test_family
+    3.times { |index| @pac.add_child(index) }
+    assert_equal(['Parent', 0, 1, 2], @pac.family)
   end
 end

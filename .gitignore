@@ -1,7 +1,5 @@
-*.pem
 *.swp
 .DS_Store
 .yardoc/
 Gemfile.lock
 _site/
-output*

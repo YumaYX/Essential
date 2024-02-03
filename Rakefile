@@ -8,7 +8,7 @@ end
 
 # DEFAULT
 require 'rake/clean'
-CLOBBER.include('_site', 'output*', '.yardoc')
+CLOBBER.include('_site', '.yardoc')
 task default: %i[clobber test rubocop]
 
 # RUBOCOP
