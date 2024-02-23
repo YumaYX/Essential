@@ -19,7 +19,7 @@ module Essential
 
     # Adds child objects to the array of children.
     #
-    # @param *child [Object] The child objects to be added.
+    # @param child The child objects to be added.
     def add_child(*child)
       child.each do |element|
         if element.respond_to?(:to_ary)
